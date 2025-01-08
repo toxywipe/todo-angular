@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { TaskStorageService } from 'src/app/services/task-storage.service';
 import { TASKS } from 'src/app/list-task';
 import { Task } from 'src/app/task';
 
@@ -9,28 +10,38 @@ import { Task } from 'src/app/task';
   styleUrls: ['./task-form.component.css']
 })
 export class TaskFormComponent {
-  newTask: Task = {
-    id: '', // ID sera généré automatiquement
-    title: '',
-    description: '',
-    category: '',
-    priority: 'Moyenne', // Donner une valeur par défaut valide
-    dueDate: new Date(), // Initialiser avec une date valide
-    isCompleted: false
-  };
-  
-  onDueDateChange(event: any) {
-    this.newTask.dueDate = new Date(event.target.value);
-  }  
+  newTask: Partial<Task> = {}; // Pour stocker les données du formulaire
 
-  constructor(private router: Router) {}
+  constructor(
+    private taskStorageService: TaskStorageService,
+    private router: Router
+  ) {}
 
-  onSubmit() {
-    // Générer un ID unique pour la tâche
-    this.newTask.id = (TASKS.length + 1).toString();
+  // Gérer le changement de la date limite
+  onDueDateChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.newTask.dueDate = input.valueAsDate!;
+  }
 
-    // Ajouter la tâche à la liste
-    TASKS.push({ ...this.newTask });
+  // Méthode appelée lors de la soumission du formulaire
+  onSubmit(): void {
+    if (!this.newTask.title || !this.newTask.category || !this.newTask.priority || !this.newTask.dueDate) {
+      return; // Assurez-vous que toutes les données obligatoires sont présentes
+    }
+
+    // Ajouter un ID unique et initialiser isCompleted
+    const task: Task = {
+      ...this.newTask,
+      id: Math.random().toString(36).substring(2, 15), // Génère un ID unique
+      isCompleted: false,
+    } as Task;
+
+    // Charger les tâches existantes et ajouter la nouvelle tâche
+    const tasks = this.taskStorageService.loadTasks();
+    tasks.push(task);
+
+    // Sauvegarder dans localStorage
+    this.taskStorageService.saveTasks(tasks);
 
     // Rediriger vers la liste des tâches
     this.router.navigate(['/tasks']);

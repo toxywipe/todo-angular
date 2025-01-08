@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TaskStorageService } from 'src/app/services/task-storage.service';
 import { TASKS } from 'src/app/list-task';
 import { Task } from 'src/app/task';
 
@@ -7,18 +8,34 @@ import { Task } from 'src/app/task';
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css']
 })
-export class TaskListComponent {
+export class TaskListComponent implements OnInit{
   tasks: Task[] = TASKS;
 
-  markAsCompleted(taskId: string) {
+  constructor(private taskStorageService: TaskStorageService) {}
+
+  ngOnInit(): void {
+    // Charger les tâches depuis localStorage au démarrage
+    this.tasks = this.taskStorageService.loadTasks();
+  }
+
+  // Ajouter une méthode pour sauvegarder les tâches à chaque modification
+  saveTasks(): void {
+    this.taskStorageService.saveTasks(this.tasks);
+  }
+
+  // Exemple de bascule d'état de tâche
+  toggleTaskCompletion(taskId: string): void {
     const task = this.tasks.find(t => t.id === taskId);
     if (task) {
-      task.isCompleted = true;
+      task.isCompleted = !task.isCompleted;
+      this.saveTasks(); // Sauvegarder après modification
     }
   }
 
-  deleteTask(taskId: string) {
+  // Exemple de suppression de tâche
+  deleteTask(taskId: string): void {
     this.tasks = this.tasks.filter(task => task.id !== taskId);
+    this.saveTasks(); // Sauvegarder après suppression
   }
 
   showTaskDetails(task: Task) {

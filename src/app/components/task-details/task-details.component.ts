@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TaskStorageService } from 'src/app/services/task-storage.service';
 import { TASKS } from 'src/app/list-task';
 import { Task } from 'src/app/task';
 
@@ -10,16 +11,20 @@ import { Task } from 'src/app/task';
 })
 
 export class TaskDetailsComponent implements OnInit {
-  task: Task | undefined; // La tâche actuellement sélectionnée
+  task: Task | null = null;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private taskStorageService: TaskStorageService
+  ) {}
 
-  ngOnInit(){
-    // Récupérer l'ID de la tâche depuis l'URL
+  ngOnInit(): void {
+    // Récupérer l'ID depuis les paramètres de l'URL
     const taskId = this.route.snapshot.paramMap.get('id');
     if (taskId) {
-      // Trouver la tâche correspondante dans la liste
-      this.task = TASKS.find(t => t.id === taskId);
+      // Charger la tâche correspondante
+      const tasks = this.taskStorageService.loadTasks();
+      this.task = tasks.find(t => t.id === taskId) || null;
     }
   }
 }

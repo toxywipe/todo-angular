@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { TASKS } from './list-task';
 
 @Component({
@@ -6,7 +6,7 @@ import { TASKS } from './list-task';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent {
   title = 'Gestionnaire de tâches';
   tasks = TASKS;
 
@@ -16,9 +16,5 @@ export class AppComponent implements OnInit{
       task.isCompleted = true;
       console.log(`Vous avez terminer la task ${ task.title }`);
     }
-  }
-
-  ngOnInit() {
-    console.table(this.tasks);
   }
 }
