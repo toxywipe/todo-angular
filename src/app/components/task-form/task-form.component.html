@@ -1,0 +1,74 @@
+<div class="container mt-4">
+  <h2>Ajouter une Tâche</h2>
+  <form (ngSubmit)="onSubmit()" #taskForm="ngForm">
+    <!-- Titre -->
+    <div class="mb-3">
+      <label for="title" class="form-label">Titre</label>
+      <input 
+        type="text" 
+        id="title" 
+        class="form-control" 
+        name="title" 
+        [(ngModel)]="newTask.title" 
+        required>
+    </div>
+
+    <!-- Description -->
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea 
+        id="description" 
+        class="form-control" 
+        name="description" 
+        [(ngModel)]="newTask.description">
+      </textarea>
+    </div>
+
+    <!-- Catégorie -->
+    <div class="mb-3">
+      <label for="category" class="form-label">Catégorie</label>
+      <select 
+        id="category" 
+        class="form-select" 
+        name="category" 
+        [(ngModel)]="newTask.category" 
+        required>
+        <option value="" disabled selected>Choisir une catégorie</option>
+        <option value="Travail">Travail</option>
+        <option value="Personnel">Personnel</option>
+        <option value="Autre">Autre</option>
+      </select>
+    </div>
+
+    <!-- Priorité -->
+    <div class="mb-3">
+      <label for="priority" class="form-label">Priorité</label>
+      <select 
+        id="priority" 
+        class="form-select" 
+        name="priority" 
+        [(ngModel)]="newTask.priority" 
+        required>
+        <option value="" disabled selected>Choisir une priorité</option>
+        <option value="Élevée">Élevée</option>
+        <option value="Moyenne">Moyenne</option>
+        <option value="Faible">Faible</option>
+      </select>
+    </div>
+
+    <!-- Date limite -->
+    <div class="mb-3">
+      <label for="dueDate" class="form-label">Date limite</label>
+      <input 
+        type="date" 
+        id="dueDate" 
+        class="form-control" 
+        name="dueDate" 
+        (change)="onDueDateChange($event)">
+    </div>
+
+    <!-- Boutons -->
+    <button type="submit" class="btn btn-primary" [disabled]="!taskForm.valid">Ajouter</button>
+    <button type="button" class="btn btn-secondary" routerLink="/tasks">Annuler</button>
+  </form>
+</div>

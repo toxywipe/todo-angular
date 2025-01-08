@@ -1,0 +1,27 @@
+.task-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .task-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+  }
+  
+  .task-title {
+    flex-grow: 1;
+    font-size: 1rem;
+  }
+  
+  .task-title.completed {
+    text-decoration: line-through;
+    color: gray;
+  }
+  
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  

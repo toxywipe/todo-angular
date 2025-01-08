@@ -1,20 +1,18 @@
 <div class="container">
-  <h1>{{ title }}</h1>
+  <header>
+    <h1>Gestionnaire de Tâches</h1>
+    <nav>
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/tasks">Liste des tâches</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/add-task">Ajouter une tâche</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
 
-  <ul class="task-list">
-    <li *ngFor="let task of tasks" [class.completed]="task.isCompleted">
-      <h3>{{ task.title }}</h3>
-      <p>{{ task.description }}</p>
-      <p><strong>Catégorie :</strong> {{ task.category }}</p>
-      <p><strong>Priorité :</strong> {{ task.priority }}</p>
-      <p><strong>Date limite :</strong> {{ task.dueDate | date }}</p>
-
-      <button 
-        *ngIf="!task.isCompleted" 
-        (click)="markAsCompleted(task.id)">
-        Terminer
-      </button>
-      <span *ngIf="task.isCompleted" class="completed-text">Terminée</span>
-    </li>
-  </ul>
+  <!-- Contenu dynamique -->
+  <router-outlet></router-outlet>
 </div>

@@ -1,0 +1,19 @@
+<ul class="task-list">
+  <li *ngFor="let task of tasks" class="d-flex align-items-center">
+    <!-- Icône validation -->
+    <button class="btn btn-success btn-sm me-2" (click)="markAsCompleted(task.id)">
+      <i class="bi bi-check-circle"></i>
+    </button>
+
+    <!-- Titre de la tâche (cliquable) -->
+    <span [routerLink]="['/task-details', task.id]" class="task-title {{ task.isCompleted ? 'completed' : '' }}">
+      {{ task.title }}
+    </span>
+    
+
+    <!-- Icône suppression -->
+    <button class="btn btn-danger btn-sm ms-auto" (click)="deleteTask(task.id)">
+      <i class="bi bi-trash"></i>
+    </button>
+  </li>
+</ul>
