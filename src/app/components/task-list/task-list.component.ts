@@ -16,6 +16,7 @@ export class TaskListComponent implements OnInit{
   ngOnInit(): void {
     // Charger les tâches depuis localStorage au démarrage
     this.tasks = this.taskStorageService.loadTasks();
+    console.table(this.tasks);
   }
 
   // Ajouter une méthode pour sauvegarder les tâches à chaque modification

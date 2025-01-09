@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TaskStorageService } from 'src/app/services/task-storage.service';
-import { TASKS } from 'src/app/list-task';
 import { Task } from 'src/app/task';
 
 @Component({
