@@ -12,7 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { EditTaskComponent } from './edit-task/edit-task.component';
+import { EditTaskComponent } from './components/edit-task/edit-task.component';
 
 //
 
