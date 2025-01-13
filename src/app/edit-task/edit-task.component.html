@@ -1,0 +1,73 @@
+<div class="container mt-4">
+    <h2>Modifier la Tâche</h2>
+    <form (ngSubmit)="onSubmit()" *ngIf="task">
+      <!-- Titre -->
+      <div class="mb-3">
+        <label for="title" class="form-label">Titre</label>
+        <input 
+          type="text" 
+          id="title" 
+          class="form-control" 
+          [(ngModel)]="task.title" 
+          name="title" 
+          required>
+      </div>
+  
+      <!-- Description -->
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea 
+          id="description" 
+          class="form-control" 
+          [(ngModel)]="task.description" 
+          name="description">
+        </textarea>
+      </div>
+  
+      <!-- Catégorie -->
+      <div class="mb-3">
+        <label for="category" class="form-label">Catégorie</label>
+        <select 
+          id="category" 
+          class="form-select" 
+          [(ngModel)]="task.category" 
+          name="category" 
+          required>
+          <option value="Travail">Travail</option>
+          <option value="Personnel">Personnel</option>
+          <option value="Autre">Autre</option>
+        </select>
+      </div>
+  
+      <!-- Priorité -->
+      <div class="mb-3">
+        <label for="priority" class="form-label">Priorité</label>
+        <select 
+          id="priority" 
+          class="form-select" 
+          [(ngModel)]="task.priority" 
+          name="priority" 
+          required>
+          <option value="Élevée">Élevée</option>
+          <option value="Moyenne">Moyenne</option>
+          <option value="Faible">Faible</option>
+        </select>
+      </div>
+  
+      <!-- Date limite -->
+      <div class="mb-3">
+        <label for="dueDate" class="form-label">Date limite</label>
+        <input 
+          type="date" 
+          id="dueDate" 
+          class="form-control" 
+          [(ngModel)]="task.dueDate" 
+          name="dueDate">
+      </div>
+  
+      <!-- Boutons -->
+      <button type="submit" class="btn btn-primary">Enregistrer</button>
+      <button type="button" class="btn btn-secondary" routerLink="/tasks">Annuler</button>
+    </form>
+  </div>
+  

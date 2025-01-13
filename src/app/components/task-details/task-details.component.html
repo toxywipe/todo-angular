@@ -1,25 +1,42 @@
 <div class="container mt-4">
-    <h2>Détails de la Tâche</h2>
-    
-    <div *ngIf="task; else notFound">
-      <p><strong>Titre :</strong> {{ task.title }}</p>
-      <p><strong>Description :</strong> {{ task.description || 'Aucune description' }}</p>
-      <p><strong>Catégorie :</strong> {{ task.category }}</p>
-      <p><strong>Priorité :</strong> {{ task.priority }}</p>
-      <p><strong>Date limite :</strong> {{ task.dueDate | date:'longDate' }}</p>
-      <p><strong>Statut :</strong> {{ task.isCompleted ? 'Terminée' : 'En cours' }}</p>
-      
-      <!-- Boutons d'action -->
-      <div class="mt-3">
-        <button class="btn btn-primary me-2">Modifier</button>
-        <button routerLink="/tasks" class="btn btn-secondary">Retour à la liste</button>
-      </div>
-    </div>
-  
-    <!-- Si la tâche n'est pas trouvée -->
-    <ng-template #notFound>
-      <p class="text-danger">Tâche introuvable.</p>
+  <h2>Détails de la Tâche</h2>
+
+  <div *ngIf="task; else notFound">
+    <!-- Informations principales -->
+    <p><strong>Titre :</strong> {{ task.title }}</p>
+    <p><strong>Description :</strong> {{ task.description || 'Aucune description' }}</p>
+    <p><strong>Catégorie :</strong> 
+      <span class="badge bg-info text-dark">{{ task.category || 'Non spécifiée' }}</span>
+    </p>
+    <p><strong>Priorité :</strong> 
+      <span 
+        class="badge" 
+        [ngClass]="{
+          'bg-danger': task.priority === 'Élevée',
+          'bg-warning': task.priority === 'Moyenne',
+          'bg-success': task.priority === 'Faible'
+        }">
+        {{ task.priority || 'Non définie' }}
+      </span>
+    </p>
+    <p><strong>Date limite :</strong> {{ task.dueDate | date: 'longDate' }}</p>
+    <p><strong>Statut :</strong> 
+      <span [class]="task.isCompleted ? 'badge bg-success' : 'badge bg-secondary'">
+        {{ task.isCompleted ? 'Terminée' : 'En cours' }}
+      </span>
+    </p>
+
+    <!-- Boutons d'action -->
+    <div class="mt-3">
+      <button class="btn btn-primary me-2" [routerLink]="['/edit-task', task.id]">Modifier</button>
+
       <button routerLink="/tasks" class="btn btn-secondary">Retour à la liste</button>
-    </ng-template>
+    </div>
   </div>
-  
+
+  <!-- Si la tâche n'est pas trouvée -->
+  <ng-template #notFound>
+    <p class="text-danger">Tâche introuvable.</p>
+    <button routerLink="/tasks" class="btn btn-secondary">Retour à la liste</button>
+  </ng-template>
+</div>

@@ -1,18 +1,25 @@
 <div class="container">
-  <header>
-    <h1>Gestionnaire de Tâches</h1>
-    <nav>
-      <ul class="nav">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/tasks">Liste des tâches</a>
+  <header class="header">
+    <nav class="navbar">
+      <div class="logo">
+        <h1>Todo Idris</h1>
+      </div>
+      <ul class="nav-links">
+        <li>
+          <a routerLink="/tasks" routerLinkActive="active-link">
+            <i class="bi bi-list-task"></i>
+          </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/add-task">Ajouter une tâche</a>
+        <li>
+          <a routerLink="/add-task" routerLinkActive="active-link">
+            <i class="bi bi-plus-circle"></i>
+          </a>
         </li>
       </ul>
     </nav>
   </header>
 
-  <!-- Contenu dynamique -->
-  <router-outlet></router-outlet>
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
 </div>

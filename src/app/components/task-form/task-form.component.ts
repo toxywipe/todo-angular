@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TaskStorageService } from 'src/app/services/task-storage.service';
-import { TASKS } from 'src/app/list-task';
 import { Task } from 'src/app/task';
 
 @Component({
@@ -41,7 +40,8 @@ export class TaskFormComponent {
     tasks.push(task);
 
     // Sauvegarder dans localStorage
-    this.taskStorageService.saveTasks(tasks);
+    // this.taskStorageService.saveTasks(tasks);
+    this.taskStorageService.saveTasks();
 
     // Rediriger vers la liste des tâches
     this.router.navigate(['/tasks']);

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { TASKS } from '../list-task';
 import { Task } from '../task';
 
 @Injectable({
@@ -7,16 +6,47 @@ import { Task } from '../task';
 })
 
 export class TaskStorageService {
-  private storageKey = 'tasks';
+  tasks: Task[] = []; // Liste des tâches
 
-  // Charger les tâches depuis localStorage
-  loadTasks(): Task[] {
-    const tasks = localStorage.getItem(this.storageKey);
-    return tasks ? JSON.parse(tasks) : [];
+  constructor() {
+    this.loadTasks(); // Charger les tâches au démarrage
   }
 
-  // Sauvegarder les tâches dans localStorage
-  saveTasks(tasks: Task[]): void {
-    localStorage.setItem(this.storageKey, JSON.stringify(tasks));
+loadTasks(): Task[] {
+    // Charger les tâches depuis localStorage
+    const savedTasks = localStorage.getItem('tasks');
+    this.tasks = savedTasks ? JSON.parse(savedTasks) : [];
+    return this.tasks;
   }
+
+  saveTasks(): void {
+    // Sauvegarder les tâches dans localStorage
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+  }
+
+  addTask(newTask: Task): void {
+    // Ajouter une nouvelle tâche et sauvegarder
+    this.tasks.push(newTask);
+    this.saveTasks();
+  }
+
+  updateTask(updatedTask: Task): void {
+    // Mettre à jour une tâche existante et sauvegarder
+    const index = this.tasks.findIndex(task => task.id === updatedTask.id);
+    if (index !== -1) {
+      this.tasks[index] = updatedTask;
+      this.saveTasks();
+    }
+  }
+
+  deleteTask(taskId: string): void {
+    // Supprimer une tâche par ID et sauvegarder
+    this.tasks = this.tasks.filter(task => task.id !== taskId);
+    this.saveTasks();
+  }
+
+  getTaskById(taskId: string): Task | undefined {
+    return this.tasks.find(task => task.id === taskId);
+  }
+  
 }
