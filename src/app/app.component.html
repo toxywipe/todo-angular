@@ -6,6 +6,16 @@
       </div>
       <ul class="nav-links">
         <li>
+          <a class="icon-button" (click)="filterTasks()">
+            <i class="bi bi-funnel"></i>
+          </a>
+        </li>
+        <li>
+          <a class="icon-button" (click)="sortTasks()">
+            <i class="bi bi-sort-alpha-down"></i>
+          </a>
+        </li>
+        <li>
           <a routerLink="/tasks" routerLinkActive="active-link">
             <i class="bi bi-list-task"></i>
           </a>

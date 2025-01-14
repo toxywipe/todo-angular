@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { TaskStorageService } from 'src/app/services/task-storage.service';
 import { Task } from 'src/app/task';
 
