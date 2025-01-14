@@ -31,8 +31,4 @@ export class AppComponent implements OnInit {
   filterTasks(): void {
     console.log('Filtrer les tâches');
   }
-
-  sortTasks(): void {
-    console.log('Trier les tâches');
-  }
 }
